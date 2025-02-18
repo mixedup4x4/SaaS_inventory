@@ -1,0 +1,54 @@
+/* 🌙 Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode .card {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-color: #333;
+}
+
+.dark-mode .table {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+.dark-mode .table-dark {
+    background-color: #222 !important;
+    color: #ffffff;
+}
+
+.dark-mode input, 
+.dark-mode textarea {
+    background-color: #222;
+    color: #ffffff;
+    border: 1px solid #555;
+}
+
+.dark-mode .btn {
+    background-color: #444;
+    color: #ffffff;
+}
+
+/* 🔥 Ensure Table Text is Always Visible in Dark Mode */
+.dark-mode th, 
+.dark-mode td {
+    color: #ffffff !important;
+    background-color: #1e1e1e !important;
+}
+
+.dark-mode tr:nth-child(even) td {
+    background-color: #292929 !important;
+}
+
+.dark-mode tr:nth-child(odd) td {
+    background-color: #1e1e1e !important;
+}
+
+/* ✅ Fix for Input Placeholder Text */
+.dark-mode input::placeholder, 
+.dark-mode textarea::placeholder {
+    color: #bbbbbb !important;
+}

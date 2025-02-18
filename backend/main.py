@@ -35,6 +35,37 @@ def get_items():
     items = cursor.fetchall()
     return {"items": items}
 
+@app.put("/items/{item_id}")
+def update_item(item_id: int, item: Item):
+    cursor.execute("SELECT id FROM items WHERE id = ?", (item_id,))
+    item_exists = cursor.fetchone()
+    
+    if not item_exists:
+        return {"error": "Item not found"}, 404  # ✅ Prevents 404 errors
+
+    cursor.execute("""
+        UPDATE items 
+        SET name = ?, quantity = ?, price = ?, item_type = ?, description = ?, unit_of_measure = ?
+        WHERE id = ?
+    """, (item.name, item.quantity, item.price, item.item_type, item.description, item.unit_of_measure, item_id))
+    
+    conn.commit()
+    
+    return {"message": "Item updated successfully"}
+
+@app.delete("/items/{item_id}")
+def delete_item(item_id: int):
+    cursor.execute("SELECT id FROM items WHERE id = ?", (item_id,))
+    item_exists = cursor.fetchone()
+
+    if not item_exists:
+        return {"error": "Item not found"}, 404  # ✅ Prevents 404 errors
+
+    cursor.execute("DELETE FROM items WHERE id = ?", (item_id,))
+    conn.commit()
+
+    return {"message": "Item deleted successfully"}
+
 @app.post("/items")
 def add_item(item: Item):
     cursor.execute("INSERT INTO items (name, quantity, price, item_type, description, unit_of_measure) VALUES (?, ?, ?, ?, ?, ?)",
