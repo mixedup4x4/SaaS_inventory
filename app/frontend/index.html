@@ -2,46 +2,137 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,1.0">
     <title>Inventory Management</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-        /* Low stock warning */
-        .low-stock { background-color: yellow !important; }
-        .out-of-stock { background-color: red !important; color: white; }
+    /* ✅ Default Light Mode */
+    body {
+        background-color: #ffffff;
+        color: #000000;
+    }
 
-        /* Dark mode styling */
-        body.dark-mode { background-color: #121212; color: #ffffff; }
-        .dark-mode .card { background-color: #1e1e1e; color: white; }
-        .dark-mode .table { color: white; }
-        .dark-mode .table-dark { background-color: #333 !important; }
+    .card {
+        background-color: #f8f9fa;
+        color: #000000;
+    }
+
+    .table {
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    .table-dark {
+        background-color: #343a40;
+        color: #ffffff;
+    }
+
+    input, textarea {
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #ccc;
+    }
+
+    .btn {
+        background-color: #007bff;
+        color: #ffffff;
+    }
+
+    /* 🌙 Dark Mode */
+    body.dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    .dark-mode .card {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        border-color: #333;
+    }
+
+    .dark-mode .table {
+        background-color: #1e1e1e;
+        color: #ffffff;
+    }
+
+    .dark-mode .table-dark {
+        background-color: #222 !important;
+        color: #ffffff;
+    }
+
+    .dark-mode input, 
+    .dark-mode textarea {
+        background-color: #222;
+        color: #ffffff;
+        border: 1px solid #555;
+    }
+
+    .dark-mode .btn {
+        background-color: #444;
+        color: #ffffff;
+    }
+
+    /* 🔥 Force Text to Always Be Visible in Dark Mode */
+    .dark-mode th, 
+    .dark-mode td {
+        color: #ffffff !important;
+        background-color: #1e1e1e !important;
+    }
+
+    .dark-mode .table th, 
+    .dark-mode .table td {
+        border-color: #555;
+    }
+
+    /* ✅ Ensure Alternating Row Colors */
+    .dark-mode tr:nth-child(even) td {
+        background-color: #292929 !important;
+    }
+
+    .dark-mode tr:nth-child(odd) td {
+        background-color: #1e1e1e !important;
+    }
+
+    /* ✅ Fix for Input Placeholder Text */
+    .dark-mode input::placeholder, 
+    .dark-mode textarea::placeholder {
+        color: #bbbbbb !important;
+    }
     </style>
 </head>
 <body class="container mt-4">
     <h1 class="text-center">📦 Inventory Management</h1>
 
-    <!-- Dark Mode Toggle -->
-    <div class="text-end mb-3">
+    <!-- Search, Dark Mode & Export Buttons -->
+    <div class="mb-3 d-flex justify-content-between">
+        <input type="text" id="search-bar" class="form-control w-50" placeholder="🔍 Search Inventory" onkeyup="filterInventory()">
         <button class="btn btn-secondary" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+        <button class="btn btn-success" onclick="exportToCSV()">📄 Export CSV</button>
     </div>
-
-    <!-- Search Bar -->
-    <input type="text" id="search-bar" class="form-control mb-3" placeholder="🔍 Search items..." onkeyup="filterInventory()">
 
     <!-- Add Item Form -->
     <div class="card p-3 mb-4">
         <h2>Add New Item</h2>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <input type="text" id="name" class="form-control" placeholder="Item Name">
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <input type="number" id="quantity" class="form-control" placeholder="Quantity">
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <input type="number" step="0.01" id="price" class="form-control" placeholder="Price">
             </div>
             <div class="col-md-2">
+                <input type="text" id="item-type" class="form-control" placeholder="Item Type">
+            </div>
+            <div class="col-md-3">
+                <input type="text" id="unit-of-measure" class="form-control" placeholder="Unit of Measure">
+            </div>
+            <div class="col-md-12 mt-2">
+                <textarea id="description" class="form-control" placeholder="Description"></textarea>
+            </div>
+            <div class="col-md-12 mt-3">
                 <button class="btn btn-primary w-100" onclick="addItem()">➕ Add Item</button>
             </div>
         </div>
@@ -55,6 +146,9 @@
                 <tr>
                     <th>Name</th>
                     <th>Quantity</th>
+                    <th>Item Type</th>
+                    <th>Description</th>
+                    <th>Unit of Measure</th>
                     <th>Price</th>
                     <th>Actions</th>
                 </tr>
@@ -63,10 +157,6 @@
                 <!-- Items will be dynamically inserted here -->
             </tbody>
         </table>
-        <div class="text-end mt-2">
-            <button class="btn btn-success" onclick="exportToCSV()">📥 Export CSV</button>
-        </div>
-        <h4 class="text-end mt-3">📊 Total Inventory Value: <span id="total-value">$0.00</span></h4>
     </div>
 
     <script src="renderer.js"></script>
