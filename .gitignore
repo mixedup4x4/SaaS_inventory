@@ -1,0 +1,24 @@
+# Ignore Python virtual environment
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore logs
+logs/
+*.log
+
+# Ignore Electron build artifacts
+app/frontend/node_modules/
+app/frontend/dist/
+app/frontend/.parcel-cache/
+
+# Ignore compiled assets
+*.sqlite3
+*.tar.gz
+*.zip
