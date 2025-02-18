@@ -28,3 +28,6 @@ start_app.sh
 
 # Ignore local stop scripts
 stop_app.sh
+
+# Ignore process ID files
+*.pid
