@@ -22,3 +22,9 @@ app/frontend/.parcel-cache/
 *.sqlite3
 *.tar.gz
 *.zip
+
+# Ignore local startup scripts
+start_app.sh
+
+# Ignore local stop scripts
+stop_app.sh
